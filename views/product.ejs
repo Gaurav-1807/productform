@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product page</title>
+    <style>
+        #parent-box {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent-box">
+
+    </div>
+</body>
+<!-- <script>
+    fetch("https://localhost:8080/form",{
+        method:"GET",
+        headers:{
+            "content-type": "application/json",
+
+        },
+        body: JSON.stringify()
+    })
+    .then((res)=>res.json())
+    .then((data) =>{
+        data.map((ele)=>{
+           
+        })
+    })
+</script> -->
+<script>
+    const display = (data) => {
+        // document.getElementById("product").innerHTML = ''
+        data.map((ele) => {
+            let image = document.createElement("h3")
+            image.innerHTML = ele.title;
+            let dis = document.createElement("h4");
+            dis.innerHTML = ele.dis;
+            let date = document.createElement("h4");
+            date.innerHTML = ele.date;
+            let ind = document.createElement("h4");
+            ind.innerHTML = ele.ind;
+            let status = document.createElement("h4");
+            status.innerHTML = `status: pending`
+            let btn1 = document.createElement("button");
+            btn1.innerHTML = "update"
+            let btn2 = document.createElement("button");
+            btn2.innerHTML = "delete"
+            let div = document.createElement("div");
+            div.append(image, dis, date, ind, status, btn1,btn2);
+            btn1.addEventListener("click", () => {
+                status.innerHTML =`status: successful`
+            })
+            btn2.addEventListener("click", () => {
+                fetch(`/delete/${ele._id}`,{
+                    method : "DELETE"
+                })
+            });
+
+            document.getElementById("parent-box").append(div);
+        });
+    }
+    fetch(" http://localhost:8080/productdata")
+        .then((response) => response.json())
+        .then((response) => {
+            products = response;
+            display(products);
+        });
+</script>
+
+</html>
